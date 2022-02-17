@@ -1,6 +1,6 @@
 # my_app
 
-A new Flutter project.
+A term flutter project of ITCS424
 
 ## Getting Started
 
