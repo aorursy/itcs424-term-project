@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/reusable_widgets/reuseable_widgets.dart';
 import 'package:my_app/screens/signup_screen.dart';
+import 'package:my_app/screens/home_screen.dart';
 import 'package:my_app/utils/color_utils.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -45,7 +46,10 @@ class _SignInScreenState extends State<SignInScreen> {
                 SizedBox(
                   height: 20,
                 ),
-                signInSignUpButton(context, true, () {}),
+                signInSignUpButton(context, true, () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => HomeScreen()));
+                }),
                 signUpOption()
               ],
             ),
