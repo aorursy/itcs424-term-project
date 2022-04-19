@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:789969678156:android:467ae4692b7f5ae81469e9",
+        "mobilesdk_app_id": "1:789969678156:android:7ca446b1582aca741469e9",
         "android_client_info": {
-          "package_name": "com.example.my_app"
+          "package_name": "com.itcs424.seeAsong"
         }
       },
       "oauth_client": [

@@ -1,22 +1,26 @@
+import 'package:acr_cloud_sdk_example/reusable_widgets/reusable_widgets.dart';
+import 'package:acr_cloud_sdk_example/utils/color_utils.dart';
+import 'package:acr_cloud_sdk_example/views/home_page.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:my_app/reusable_widgets/reuseable_widgets.dart';
-import 'package:my_app/screens/home_screen.dart';
-import 'package:my_app/utils/color_utils.dart';
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({Key? key}) : super(key: key);
+class SignUpPage extends StatefulWidget {
+  const SignUpPage({Key? key}) : super(key: key);
 
   @override
-  _SignUpScreenState createState() => _SignUpScreenState();
+  _SignUpPageState createState() => _SignUpPageState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class _SignUpPageState extends State<SignUpPage> {
   TextEditingController _passwordTextController = TextEditingController();
   TextEditingController _emailTextController = TextEditingController();
   TextEditingController _userNameTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    CollectionReference users = FirebaseFirestore.instance.collection('users');
+    FirebaseAuth auth = FirebaseAuth.instance;
+    String uid = auth.currentUser!.uid.toString();
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -41,7 +45,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             padding: EdgeInsets.fromLTRB(20, 120, 20, 0),
             child: Column(
               children: <Widget>[
-                logoWidget("assets/images/music.png"),
+                logoWidget("assets/images/logo.png"),
                 const SizedBox(
                   height: 20,
                 ),
@@ -67,11 +71,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           password: _passwordTextController.text)
                       .then((value) {
                     print("Create new account successfully");
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => HomeScreen()));
+                    users
+                        .doc(_emailTextController.text)
+                        .set({'username': _userNameTextController.text})
+                        .then((value) => print("Data is added to firestore"))
+                        .catchError((error) => print('Got error: $error'));
+                    // users
+                    //     .add({
+                    //       'username': _userNameTextController.text,
+                    //       'email': _emailTextController.text,
+                    //       'uid': uid
+                    //     })
+                    //     .then((value) => print("Data is added to firestore"))
+                    //     .catchError((error) => print('Got error: $error'));
                   }).onError((error, stackTrace) {
                     print("Error ${error.toString()}");
                   });
+
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => HomePage()));
                 })
               ],
             ),

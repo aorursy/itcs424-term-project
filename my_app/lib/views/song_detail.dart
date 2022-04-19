@@ -1,6 +1,7 @@
 import 'package:acr_cloud_sdk_example/core/models/deezer_song_model.dart';
 import 'package:acr_cloud_sdk_example/utils/margin.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -17,6 +18,9 @@ class _SongDetailPageState extends State<SongDetailPage> {
   void addFav() {}
   @override
   Widget build(BuildContext context) {
+    CollectionReference users = FirebaseFirestore.instance.collection('users');
+    FirebaseAuth auth = FirebaseAuth.instance;
+    String userEmail = auth.currentUser!.email.toString();
     return Container(
       height: 150,
       child: Material(
@@ -108,6 +112,14 @@ class _SongDetailPageState extends State<SongDetailPage> {
                   onPressed: () {
                     setState(() {
                       _isFavorited = !_isFavorited;
+                    });
+                    Map<String, String?> song = {
+                      "title": widget.songModel?.album?.title,
+                      "artist": widget.songModel?.artist?.name
+                    };
+
+                    users.doc(userEmail).update({
+                      "favSongs": FieldValue.arrayUnion([song])
                     });
                   },
                 ),

@@ -11,12 +11,12 @@ import 'dart:math' as math show sin, pi, sqrt;
 
 import 'package:flutter/animation.dart';
 
-class HomePage extends StatefulHookWidget {
+class SearchSong extends StatefulHookWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  _SearchSongState createState() => _SearchSongState();
 }
 
-class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
+class _SearchSongState extends State<SearchSong> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
@@ -125,7 +125,6 @@ class Ripples extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final _controller = useProvider(homeVM.select((v) => v.controller));
-    
 
     return CustomPaint(
       painter: _CirclePainter(
