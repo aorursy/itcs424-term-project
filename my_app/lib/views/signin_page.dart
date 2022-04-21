@@ -38,8 +38,8 @@ class _SignInPageState extends State<SignInPage> {
                 SizedBox(
                   height: 30,
                 ),
-                reusableTextField("Username", Icons.person_outline, false,
-                    _emailTextController),
+                reusableTextField(
+                    "Email", Icons.email_outlined, false, _emailTextController),
                 SizedBox(
                   height: 20,
                 ),
