@@ -1,4 +1,6 @@
 import 'package:acr_cloud_sdk_example/views/fav_song.dart';
+import 'package:acr_cloud_sdk_example/views/signin_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:acr_cloud_sdk_example/views/search_song.dart';
 
@@ -34,12 +36,19 @@ class _HomePageState extends State<HomePage> {
       length: 1,
       child: Scaffold(
         body: TabBarView(
-          children: [FavSongPage()],
+          children: [SearchSong()],
         ),
-        backgroundColor: Color(0xffff005d),
-        bottomNavigationBar: TabBar(
-          tabs: [Tab(icon: Icon(Icons.favorite))],
-          indicatorColor: Colors.transparent,
+        bottomNavigationBar: Container(
+          child: ElevatedButton(
+              child: Text("Logout"),
+              onPressed: () {
+                FirebaseAuth.instance.signOut().then((value) {
+                  print("Signed Out");
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => SignInPage()));
+                });
+              },
+              style: ElevatedButton.styleFrom(primary: Color(0xffff005d))),
         ),
       ),
     );

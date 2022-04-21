@@ -1,4 +1,6 @@
 import 'package:acr_cloud_sdk_example/utils/log.dart';
+import 'package:acr_cloud_sdk_example/views/fav_song.dart';
+import 'package:acr_cloud_sdk_example/views/home_page.dart';
 import 'package:acr_cloud_sdk_example/views/signin_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';

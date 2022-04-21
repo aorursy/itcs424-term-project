@@ -20,7 +20,7 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget build(BuildContext context) {
     CollectionReference users = FirebaseFirestore.instance.collection('users');
     FirebaseAuth auth = FirebaseAuth.instance;
-    String uid = auth.currentUser!.uid.toString();
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -55,7 +55,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   height: 20,
                 ),
                 reusableTextField(
-                    "Email", Icons.person_outline, false, _emailTextController),
+                    "Email", Icons.email_outlined, false, _emailTextController),
                 const SizedBox(
                   height: 20,
                 ),
@@ -76,14 +76,6 @@ class _SignUpPageState extends State<SignUpPage> {
                         .set({'username': _userNameTextController.text})
                         .then((value) => print("Data is added to firestore"))
                         .catchError((error) => print('Got error: $error'));
-                    // users
-                    //     .add({
-                    //       'username': _userNameTextController.text,
-                    //       'email': _emailTextController.text,
-                    //       'uid': uid
-                    //     })
-                    //     .then((value) => print("Data is added to firestore"))
-                    //     .catchError((error) => print('Got error: $error'));
                   }).onError((error, stackTrace) {
                     print("Error ${error.toString()}");
                   });
